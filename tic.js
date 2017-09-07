@@ -47,6 +47,24 @@ function analyzeBoard() {
   }
 }
 
+function isWin() {
+
+   let winZones = [board[0][0] + board[0][1] + board[0][2],
+              board[1][0] + board[1][1] + board[1][2],
+              board[2][0] + board[2][1] + board[2][2],
+              board[0][0] + board[1][0] + board[2][0],
+              board[0][1] + board[1][1] + board[2][1],
+              board[0][2] + board[1][2] + board[2][2],
+              board[0][0] + board[1][1] + board[2][2],
+              board[2][0] + board[1][1] + board[0][2]];  
+   let win = /^XXX|OOO$/;
+
+   return winZones.reduce((p,c,i) => {
+     return p || win.test(c);
+   },false);
+
+}
+
 var move = function(player) {
   drawGui();
   rl.question(player.name + ' Where would you like to move: ', (answer) => {
@@ -95,6 +113,11 @@ var chooseSymbol = function(player) {
 
 function checkMove() {
   // at start of game playerOne turn is set to true
+  if (isWin()) {
+      drawGui();
+      console.log(((computer.turn) ? 'Player One' : 'Computer') + ' wins!');
+      process.exit(0);
+  }
   if(playerOne.turn == true) {
     move(playerOne)
     //execute move, then set computer turn to opposite of whatever it is
