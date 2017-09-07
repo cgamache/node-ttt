@@ -35,23 +35,14 @@ function calculateColumn(column) {
   }
 }
 
-// function analyzeBoard() {
-//   board.forEach((item, row) => {
-//     item.forEach((position, column) => {
-//       console.log(row, column)
-//       if(board[row][column] == ' ') {
-//         board[row][column] = computer.symbol
-//         break;
-//       }
-//     })
-//   })
-// }
-
 function analyzeBoard() {
-  for(var row=0; row<1; row++) {
+  for(var row=0; row<board.length; row++) {
     for(var column=0; column<board[row].length; column++) {
       console.log(row, column)
-        break;
+      if (board[row][column] == ' ') {
+        board[row][column] = computer.symbol
+        return;
+      }
     }
   }
 }
